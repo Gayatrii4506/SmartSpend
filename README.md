@@ -119,6 +119,7 @@ npm run dev
 
 ---
 
+<<<<<<< HEAD
 ## 👥 Contributors
 - **Thulasiram K** – Frontend & UI Architecture (Team Lead)
 - **Ravindran S** – ML Engineering & Backend Development
@@ -127,3 +128,5 @@ npm run dev
 
 ## 📄 License
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+=======
+>>>>>>> ddd5977ab5cad4d580685e5423ff9d09276347b5
