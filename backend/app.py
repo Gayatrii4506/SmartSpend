@@ -21,6 +21,14 @@ import PyPDF2
 app = Flask(__name__)
 CORS(app)
 
+# --- Configuration & Constants ---
+VERSION = "1.1.0"
+APP_NAME = "SmartSpend ML API"
+
+print(f"\n{'='*40}")
+print(f"🚀 Starting {APP_NAME} v{VERSION}")
+print(f"{'='*40}\n")
+
 # In-memory storage for expenses (replace with database in production)
 expenses_db = []
 expense_id_counter = 1
@@ -52,10 +60,14 @@ if platform.system() == "Windows":
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
             print(f"✅ Found Tesseract in PATH: {tesseract_path}")
         else:
-            print("⚠️ Warning: Tesseract not found in common locations")
+            print("⚠️ [OCR] Warning: Tesseract not found in common locations")
             print("   Please install Tesseract OCR or update the path in app.py")
 
 class BillExtractor:
+    """
+    Core engine for processing bill images and PDFs.
+    Handles OCR text extraction and intelligent data parsing.
+    """
     def __init__(self):
         # Load the trained expense categorization model
         model_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Expense_model', 'models', 'expense_model.pkl')
@@ -113,7 +125,15 @@ class BillExtractor:
         return cleaned
     
     def extract_text_from_image(self, image):
-        """Extract text from image using OCR"""
+        """
+        Extracts raw text from a provided image using Tesseract OCR.
+        
+        Args:
+            image (numpy.ndarray): The image array to process.
+            
+        Returns:
+            str: Extracted text or error message.
+        """
         try:
             # Check if Tesseract is available
             try:
@@ -289,11 +309,19 @@ class BillExtractor:
             Note: Some scanned PDFs require OCR processing.
             """
         except Exception as e:
-            print(f"❌ PDF OCR Error: {e}")
             return f"PDF OCR Error: {str(e)}"
     
     def extract_dates(self, text):
-        """Extract dates from bill text with improved accuracy and current date fallback"""
+        """
+        Parses the extracted text for potential transaction dates.
+        Uses a variety of regex patterns to handle different global formats.
+        
+        Args:
+            text (str): The raw text extracted via OCR.
+            
+        Returns:
+            str: The most likely date found, or current date if none identified.
+        """
         dates = []
         found_dates_set = set()  # To avoid duplicates
         
@@ -464,7 +492,16 @@ class BillExtractor:
         return False
 
     def extract_amounts(self, text):
-        """Extract monetary amounts from text with improved pattern matching"""
+        """
+        Identifies monetary amounts within the text.
+        Prioritizes 'Grand Total' and 'Amount Payable' using context matching.
+        
+        Args:
+            text (str): The raw text extracted via OCR.
+            
+        Returns:
+            tuple: (sorted_list_of_amounts, currency_type)
+        """
         # More comprehensive patterns for Indian currency and general amounts
         amount_patterns = [
             # Direct currency patterns

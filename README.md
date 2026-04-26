@@ -1,267 +1,129 @@
-#  Smart Expense Tracker with ML-Powered Bill Extraction  
+# SmartSpend: ML-Powered Expense Tracker
 
-##  Project Overview  
-This project is an **intelligent expense tracking system** that revolutionizes financial management through **Machine Learning and OCR technology**. Users can simply upload bill/receipt images, and the system automatically extracts all relevant information including amounts, vendors, dates, and line items, then intelligently categorizes expenses using a trained ML model.
+## 🚀 Project Overview
+**SmartSpend** is an intelligent expense tracking system that revolutionizes financial management through **Machine Learning and OCR technology**. Users can simply upload bill/receipt images, and the system automatically extracts all relevant information—including amounts, vendors, dates, and line items—and intelligently categorizes expenses using a trained ML model.
 
-The system provides a **comprehensive dashboard with insights, charts, and analytics** to help individuals and businesses make data-driven financial decisions.
+The system provides a **comprehensive dashboard with interactive insights** to help individuals and businesses make data-driven financial decisions.
 
-##  Key Features  
+---
 
-### **ML-Powered Bill Extraction**
-- **Advanced OCR Processing** – Extract text from any bill/receipt format
-- **Smart Data Extraction** – Automatically identify amounts, vendors, dates, items
-- **Intelligent Categorization** – ML model categorizes expenses with high accuracy
-- **Multi-format Support** – Works with PNG, JPEG, TIFF, and other image formats
+## ✨ Key Features
 
-### **Intelligent Analytics**
-- **Interactive Dashboard** – Real-time spending visualizations
-- **Predictive Insights** – ML-driven spending pattern analysis  
-- **Budget Tracking** – Smart alerts and recommendations
-- **Custom Reports** – Export detailed reports in PDF/CSV formats
+### 🤖 ML-Powered Bill Extraction
+- **Advanced OCR Processing**: Extract text from PNG, JPEG, TIFF, and PDF formats.
+- **Smart Data Extraction**: Automatically identify vendors, amounts, dates, and individual items.
+- **Intelligent Categorization**: Hybrid ML model (TF-IDF + Numeric) with high accuracy.
+- **Robust Preprocessing**: Integrated OpenCV pipeline for image cleaning.
 
-###  **Advanced Technology**
-- **Real-time Processing** – Instant bill analysis and categorization
-- **High Accuracy OCR** – Optimized image preprocessing for better text extraction
-- **Scalable Architecture** – Handles multiple bill uploads efficiently
-- **Error Handling** – Robust validation and fallback mechanisms
+### 📊 Intelligent Analytics
+- **Live Dashboard**: Real-time spending visualizations and trends.
+- **Predictive Insights**: Spending pattern analysis and budget forecasting.
+- **Budget Tracking**: Smart alerts and category-wise breakdown.
+- **Exportable Reports**: Generate detailed summaries in CSV/PDF formats.
 
+---
 
+## 🛠️ Tech Stack
 
-##  Tech Stack  
+### Frontend
+- **React 18**: Modern UI with hooks and state management.
+- **Vite**: Ultra-fast build tool and development server.
+- **Tailwind CSS**: Responsive, utility-first styling.
+- **Framer Motion**: Smooth micro-animations and transitions.
+- **Lucide React**: Clean, consistent iconography.
 
-### **Frontend**
-- React.js 18 with modern hooks
-- Tailwind CSS for responsive design
-- Framer Motion for smooth animations  
-- Lucide React for beautiful icons
-- Vite for fast development
+### Backend & ML
+- **Flask**: Lightweight Python API framework with CORS.
+- **Tesseract OCR**: Industrial-grade text extraction engine.
+- **OpenCV**: Advanced image preprocessing (OTSU, Gaussian Blur).
+- **scikit-learn**: Logistic Regression pipeline for classification.
+- **Pandas/NumPy**: Efficient data manipulation and processing.
 
-### **Backend & ML**
-- Flask with CORS support
-- OpenCV for image preprocessing
-- Tesseract OCR for text extraction
-- scikit-learn for ML categorization
-- NumPy & Pandas for data processing
+---
 
-### **Machine Learning Pipeline**
-- **Text Processing**: TF-IDF vectorization for bill descriptions
-- **Feature Engineering**: Amount, date, vendor analysis
-- **Classification**: Logistic Regression with hybrid features
-- **Model Persistence**: Joblib for model serialization
-
-
-
-##  Project Structure  
+## 📁 Project Structure
 ```yaml
 SmartSpend/
-├── frontend/                 # React application
+├── frontend/               # React + Vite application
 │   ├── src/
-│   │   ├── components/      # UI components
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── UploadCard.jsx  # ML bill upload
-│   │   │   ├── ExpenseTable.jsx
-│   │   │   └── ...
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── vite.config.js
+│   │   ├── components/    # Reusable UI components
+│   │   ├── utils/         # Helper functions
+│   │   └── App.jsx        # Root component
+│   └── tailwind.config.js
 │
-├── backend/                  # Flask API server
-│   ├── app.py               # Main ML API application
-│   ├── test_extraction.py   # Testing utilities
-│   └── requirements.txt     # Python dependencies
+├── backend/                # Flask API server
+│   ├── app.py             # Main API & Extraction logic
+│   ├── models.py          # ML Model definitions
+│   └── requirements.txt   # Python dependencies
 │
-├── Expense_model/           # ML model training
-│   ├── Expense_Categorization_Model.ipynb
-│   ├── expense_model.pkl    # Trained ML model
-│   └── exp.csv             # Training dataset
+├── Expense_model/         # ML Training environment
+│   ├── models/            # Saved .pkl model files
+│   ├── training.ipynb     # Model development notebook
+│   └── data/              # Training datasets
 │
-├── ML_SETUP.md             # Detailed setup guide
-├── setup.bat               # Windows setup script
-└── requirements.txt        # Project dependencies
+├── setup.bat              # Windows automation script
+└── README.md              # Project documentation
 ```
 
+---
 
-##  Quick Setup  
+## ⚙️ Quick Setup
 
-###  **Automated Setup (Windows)**
+### Automated Setup (Windows)
 ```bash
-# Run the setup script
+# Run the integrated setup script
 setup.bat
 ```
 
-###  **Manual Setup**
+### Manual Installation
 
-#### 1️ **Install Tesseract OCR**
-- **Windows**: Download from [Tesseract GitHub](https://github.com/UB-Mannheim/tesseract/wiki)
+#### 1. Install Tesseract OCR
+- **Windows**: Download installer from [UB-Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)
 - **macOS**: `brew install tesseract`
 - **Linux**: `sudo apt-get install tesseract-ocr`
 
-#### 2️ **Backend Setup**
+#### 2. Backend Setup
 ```bash
-cd backend
-pip install -r requirements.txt
-python app.py  # Starts on http://localhost:5000
-```
-
-#### 3️ **Frontend Setup**
-```bash
-cd frontend
-npm install
-npm start  # Starts on http://localhost:5173
-```
-
-#### 4️ **Test the System**
-```bash
-cd backend
-python test_extraction.py
-```
-
-##  **How It Works**
-
-### 1. **Upload Bill Image**
-- Drag & drop or click to upload bill/receipt
-- Supports all common image formats
-- Real-time upload progress
-
-### 2. **ML Processing Pipeline**
-```
-Image → OCR Preprocessing → Text Extraction → 
-Data Parsing → ML Categorization → Results Display
-```
-
-### 3. **Intelligent Extraction**
-- **Vendor Detection**: Identifies merchant/store name
-- **Amount Recognition**: Finds total and line item amounts
-- **Date Extraction**: Parses transaction dates
-- **Item Analysis**: Lists individual purchased items
-- **Smart Categorization**: ML model assigns expense category
-
-### 4. **Review & Save**
-- Review extracted information
-- Make manual corrections if needed
-- Add to expense database with one click
-
-
-
-##  **ML Model Details**
-
-### **Training Features**
-- **Text Features**: TF-IDF vectors from bill descriptions
-- **Numeric Features**: Amount, day of week, month
-- **Hybrid Pipeline**: Combines text and numeric processing
-
-### **Model Performance**
-- **Algorithm**: Logistic Regression with regularization
-- **Feature Processing**: StandardScaler + TfidfVectorizer
-- **Validation**: Cross-validation with 80/20 split
-- **Categories**: Food, Transportation, Utilities, Shopping, etc.
-
-### **Continuous Learning**
-- Model can be retrained with new data
-- User corrections improve future predictions
-- Regular model updates for better accuracy
-
-
-
-##  **API Documentation**
-
-### **Endpoints**
-- `POST /api/process-bill` - Upload and process bill images
-- `POST /api/categorize-expense` - Categorize individual expenses  
-- `GET /api/health` - System health check
-
-### **Example Response**
-```json
-{
-  "success": true,
-  "vendor": "Walmart Supercenter",
-  "total_amount": 45.67,
-  "dates": ["2025-10-01"],
-  "category": "Groceries",
-  "items": ["Milk", "Bread", "Eggs"],
-  "confidence": 0.89
-}
-```
-
-
-
-##  **Advanced Features**
-
-### **Image Preprocessing**
-- Gaussian blur for noise reduction
-- OTSU thresholding for optimal binarization
-- Morphological operations for text clarity
-
-### **Error Handling**
-- Fallback mechanisms for poor image quality
-- Manual correction interface
-- Confidence scoring for predictions
-
-### **Performance Optimization**
-- Async processing for large images
-- Caching for repeated requests
-- Batch processing capabilities
-
----
-
-##  **Contributing**
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-
-
-##  Installation & Setup  
-
-### 1️ Clone the Repository  
-```bash
-git clone https://github.com/your-username/expense-tracker-ocr-ml.git
-cd expense-tracker-ocr-ml
-```
-### 2️ Backend Setup
-```bash
-
 cd backend
 python -m venv venv
-source venv/bin/activate   # (Linux/Mac)
-venv\Scripts\activate      # (Windows)
+# Windows: venv\Scripts\activate | Unix: source venv/bin/activate
 pip install -r requirements.txt
 python app.py
 ```
-Backend will start at  http://localhost:5000/
 
-### 3️ Frontend Setup
+#### 3. Frontend Setup
 ```bash
-
 cd frontend
 npm install
-npm start
+npm run dev
 ```
-Frontend will start at  http://localhost:3000/
 
+---
 
+## 💡 How It Works
 
-##  Contribution Guidelines
-- Fork this repo 
+1.  **Image Input**: User uploads a receipt (Image/PDF).
+2.  **Preprocessing**: Image is converted to grayscale, blurred, and thresholded via OpenCV.
+3.  **OCR Execution**: Tesseract extracts raw text using multiple Page Segmentation Modes (PSM).
+4.  **Information Extraction**: Regex-based parsers extract dates, vendors, and amounts.
+5.  **ML Categorization**: The extracted description is vectorized and passed through a Logistic Regression model to assign a category (e.g., *Groceries*, *Electronics*).
+6.  **Human-in-the-loop**: Users can review and correct any extracted data before saving.
 
-- Create a new branch (feature-new) 
+---
 
-- Commit changes (git commit -m "Add new feature") 
-- Push to branch (git push origin feature-new) 
+## 🔍 Troubleshooting
 
-- Create a Pull Request 
+- **Low OCR Accuracy**: Ensure the receipt is well-lit and flat. Avoid blurry images.
+- **Tesseract Not Found**: Ensure Tesseract is installed and the path is correctly set in `backend/app.py`.
+- **Model Version Warning**: If you see scikit-learn warnings, consider retraining the model using the provided Jupyter notebook in `Expense_model/`.
 
-##  License
-This project is licensed under the MIT License – free to use and modify.
+---
 
-##  Team / Contributors
-- Thulasiram K – Frontend & UI (Team Lead)
-- Ravindran S – ML & Backend
+## 👥 Contributors
+- **Thulasiram K** – Frontend & UI Architecture (Team Lead)
+- **Ravindran S** – ML Engineering & Backend Development
 
+---
 
+## 📄 License
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
